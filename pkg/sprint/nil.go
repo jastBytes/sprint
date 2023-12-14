@@ -7,3 +7,8 @@ func DefaultIfNil[V comparable](val, def *V) *V {
 	}
 	return val
 }
+
+// ToPointer returns a pointer to v
+func ToPointer[V comparable](v V) *V {
+	return &v
+}
