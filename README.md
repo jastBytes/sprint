@@ -12,7 +12,7 @@ This library has no dependencies outside the Go standard library.
 
 ## 💡 Usage
 
-You can import `lo` using:
+You can import `sprint` using:
 
 ```go
 import (
