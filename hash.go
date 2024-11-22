@@ -8,15 +8,21 @@ import (
 )
 
 // Hash returns a SHA256 hash of the given struct
-func Hash[T any](s T) []byte {
+func Hash[T any](s T) ([]byte, error) {
 	var b bytes.Buffer
-	gob.NewEncoder(&b).Encode(s)
+	if err := gob.NewEncoder(&b).Encode(s); err != nil {
+		return nil, err
+	}
 	h := sha256.New()
 	h.Write(b.Bytes())
-	return h.Sum(nil)
+	return h.Sum(nil), nil
 }
 
 // Hash returns a SHA256 hash of the given struct as string
-func HashString[T any](s T) string {
-	return fmt.Sprintf("%x\n", Hash(s))
+func HashString[T any](s T) (string, error) {
+	h, err := Hash(s)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%x\n", h), nil
 }
